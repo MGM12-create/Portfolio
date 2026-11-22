@@ -29,33 +29,147 @@ projects = [
 ]
 for lang in ["es", "en"]:
     es = lang == "es"
+
     def tr(spanish, english):
         return spanish if es else english
-    title = tr("Diseño de interiores", "Interior design")
-    bio = tr("Mi trabajo en interiorismo parte de observar cómo se vive un espacio. En Casa M&M, el recorrido desde el jardín orientó la remodelación. En Restaurante Luna, estudié cómo cambia una conversación según la luz que llega a la mesa. En Casa Doré, llevé esa mirada a la investigación del art déco y su relación con la vivienda contemporánea.",
-             "My interior design work starts with how people use a space. At Casa M&M, the route from the garden shaped the renovation. At Restaurante Luna, I explored how light at the table can change the mood of a conversation. Casa Doré brought that interest into my research on Art Deco and contemporary living.")
-    work = tr("Proyectos", "Projects")
-    about = tr("Perfil", "Profile")
-    terms = tr("Interiorismo residencial · Diseño de iluminación · Paisajismo · Remodelación · Materiales y texturas · Art déco", "Residential interiors · Lighting design · Landscape design · Renovation · Materials and textures · Art Deco")
-    software = ["SketchUp", "Twinmotion", "AutoCAD", "D5 Render", "Adobe Illustrator", "Adobe InDesign", "Autodesk Revit"]
+
+    title = tr("Diseñadora de interiores", "Interior designer")
+    bio = tr(
+        "Soy diseñadora de interiores egresada de la Universidad Latina de Costa Rica. "
+        "Trabajo la distribución de espacios y la selección de materiales, acabados y mobiliario. "
+        "Uso el modelado y el renderizado 3D para desarrollar y comunicar mis propuestas.",
+        "I'm an interior designer and a graduate of Universidad Latina de Costa Rica. "
+        "My work includes space planning and selecting materials, finishes and furniture. "
+        "I use 3D modeling and rendering to develop and communicate my proposals.",
+    )
+    experience = tr(
+        "En mi pasantía en Grupo MC Arquitectura coordiné reuniones y apoyé la gestión de trámites "
+        "y la comunicación con clientes. También tengo experiencia en atención al cliente y docencia preescolar.",
+        "During my internship at Grupo MC Arquitectura, I coordinated meetings and assisted with administrative "
+        "tasks and client communications. I also have experience in customer service and preschool teaching.",
+    )
     cards = []
     sources = []
+    presentation = tr("Ver presentación", "View presentation")
     for name, img, short, spanish, english in projects:
         category, description = spanish if es else english
         url = "https://canva.link/" + short
-        cards.append(f'<article><a href="{url}" aria-label="{escape(name)}"><img loading="lazy" src="img/{img}.webp" alt="{escape(name)}"></a><small>{category}</small><h3>{escape(name)}</h3><p>{description}</p><a class="under" href="{url}">{tr("Ver presentación","View presentation")}</a></article>')
-        sources.append(f'<li>González, Michelle. <a href="{url}"><i>{escape(name)}</i></a>. {category}. Canva.</li>')
-    resources = ['<a href="cv/michelle-gonzalez-es.pdf">CV · Español (PDF)</a>', '<a href="cv/michelle-gonzalez-en.pdf">CV · English (PDF)</a>']
+        project_name = escape(name)
+        cards.append(f"""
+          <article class="project">
+            <a class="project-image" href="{url}" aria-label="{presentation}: {project_name}">
+              <img loading="lazy" src="img/{img}.webp" alt="{project_name}">
+            </a>
+            <p class="project-category">{category}</p>
+            <h3>{project_name}</h3>
+            <p>{description}</p>
+            <a class="project-link" href="{url}" aria-label="{presentation}: {project_name}">{presentation}</a>
+          </article>""")
+        sources.append(f'<li>González, Michelle. <a href="{url}"><cite>{project_name}</cite></a>. {category}. Canva.</li>')
+
+    cv_es = '<a class="button" href="cv/michelle-gonzalez-es.pdf" lang="es" hreflang="es">CV en español <span>PDF</span></a>'
+    cv_en = '<a class="button" href="cv/michelle-gonzalez-en.pdf" lang="en" hreflang="en">English résumé <span>PDF</span></a>'
+    cv_links = tr(cv_es + cv_en, cv_en + cv_es)
+    contact_links = []
     if email:
-        resources.append(f'<a href="mailto:{quote(email, safe="@")}">{escape(email)}</a>')
-    for key,label in [('linkedin','LinkedIn'),('github',tr('Código en GitHub','Source on GitHub'))]:
-        if urlparse(links[key]).scheme == "https":
-            resources.append(f'<a href="{escape(links[key],quote=True)}">{label}</a>')
-    page = f"""<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Michelle González | {title}</title><meta name="description" content="{escape(bio)}"><meta name="keywords" content="{terms.replace(' · ', ', ')}, {', '.join(software)}"><link rel="stylesheet" href="style.css"></head>
-<body><header><a class="brand" href="#top">Michelle González</a><nav aria-label="{tr('Navegación','Navigation')}"><a href="#projects">{work}</a><a href="#profile">{about}</a><a href="#cv">CV</a><a lang="{tr('en','es')}" href="{tr('en.html','index.html')}">{tr('English','Español')}</a></nav></header>
-<main id="top"><section class="hero"><div><small>{title}</small><h1>Michelle<br>González</h1><p>{tr('Proyectos de vivienda, paisaje e iluminación.','Projects in residential interiors, landscape and lighting.')}</p><a class="under" href="#projects">{tr('Explorar proyectos','Explore projects')}</a></div><img src="img/sala.webp" alt="{tr('Sala de Casa M&amp;M con ventanales y mobiliario de fibras naturales','Casa M&amp;M living room with tall windows and woven furniture')}"></section>
-<section id="projects"><h2>{tr('Proyectos seleccionados','Selected projects')}</h2><div class="grid">{''.join(cards)}</div></section>
-<section class="profile" id="profile"><div><small>{about}</small><h2>{tr('Sobre mí','About me')}</h2></div><div><p>{bio}</p><p class="terms">{terms}</p><h3>{tr("Herramientas","Software")}</h3><p class="terms">{" · ".join(software)}</p></div></section>
-<section id="cv"><h2>{tr('Currículum y enlaces','Résumé and links')}</h2><div class="resources">{''.join(resources)}</div></section>
-<footer><details><summary>{tr('Fuentes del portafolio','Portfolio references')}</summary><ul>{''.join(sources)}</ul></details><span>Michelle González</span></footer></main></body></html>"""
+        contact_links.append(f'<li><a href="mailto:{quote(email, safe="@")}">{escape(email)}</a></li>')
+    if urlparse(links["linkedin"]).scheme == "https":
+        contact_links.append(f'<li><a href="{escape(links["linkedin"], quote=True)}">LinkedIn</a></li>')
+    contact = ""
+    if contact_links:
+        contact = f"""
+        <div class="contact">
+          <h3>{tr('Contacto', 'Contact')}</h3>
+          <ul>{''.join(contact_links)}</ul>
+        </div>"""
+    github = ""
+    if urlparse(links["github"]).scheme == "https":
+        github = f'<a href="{escape(links["github"], quote=True)}">{tr("Código en GitHub", "Source on GitHub")}</a>'
+
+    page = f"""<!doctype html>
+<html lang="{lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Michelle González | {title}</title>
+  <meta name="description" content="{escape(bio, quote=True)}">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="#top">Michelle González</a>
+    <nav aria-label="{tr('Navegación principal', 'Main navigation')}">
+      <a href="#projects">{tr('Proyectos', 'Projects')}</a>
+      <a href="#profile">{tr('Perfil', 'Profile')}</a>
+      <a href="#cv">{tr('CV y contacto', 'Résumé &amp; contact')}</a>
+      <a class="language" lang="{tr('en', 'es')}" hreflang="{tr('en', 'es')}" href="{tr('en.html', 'index.html')}">{tr('English', 'Español')}</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <p class="profession">{title}</p>
+        <h1>Michelle<br>González</h1>
+        <p class="location">Alajuela, Costa Rica</p>
+        <p class="hero-intro">{tr('Proyectos de vivienda, paisaje e iluminación con atención a los materiales y a cómo se recorre cada espacio.', 'Residential, landscape and lighting projects shaped by materials and how people move through each space.')}</p>
+        <a class="button primary" href="#projects">{tr('Ver proyectos', 'Explore projects')}</a>
+      </div>
+      <figure>
+        <img src="img/sala.webp" width="1586" height="992" alt="{tr('Sala de Casa M&amp;M con ventanales y mobiliario de fibras naturales', 'Casa M&amp;M living room with tall windows and woven furniture')}">
+        <figcaption>{tr('Sala de Casa M&amp;M', 'Casa M&amp;M living room')}</figcaption>
+      </figure>
+    </section>
+    <section class="projects" id="projects">
+      <h2>{tr('Proyectos seleccionados', 'Selected projects')}</h2>
+      <div class="project-grid">{''.join(cards)}
+      </div>
+    </section>
+    <section class="profile" id="profile">
+      <div class="profile-intro">
+        <h2>{tr('Sobre mí', 'About me')}</h2>
+        <div>
+          <p class="bio">{bio}</p>
+          <p>{experience}</p>
+        </div>
+      </div>
+      <div class="profile-details">
+        <div>
+          <h3>{tr('Formación e idiomas', 'Education and languages')}</h3>
+          <dl>
+            <dt>{tr('Diseño y Decoración de Interiores', 'Interior Design and Decoration')}</dt>
+            <dd>Universidad Latina de Costa Rica · 2021–2026</dd>
+            <dt>{tr('Idiomas', 'Languages')}</dt>
+            <dd>{tr('Español nativo · Inglés avanzado', 'Native Spanish · Advanced English')}</dd>
+          </dl>
+        </div>
+        <div>
+          <h3>{tr('Herramientas', 'Software')}</h3>
+          <dl>
+            <dt>{tr('Diseño y modelado', 'Design and modeling')}</dt>
+            <dd>SketchUp · AutoCAD · Autodesk Revit</dd>
+            <dt>{tr('Renderizado', 'Rendering')}</dt>
+            <dd>Twinmotion · D5 Render</dd>
+            <dt>{tr('Diseño gráfico', 'Graphic design')}</dt>
+            <dd>Adobe InDesign · Adobe Illustrator</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+    <section class="cv" id="cv">
+      <div>
+        <h2>{tr('Currículum', 'Résumé')}</h2>
+        <div class="cv-links">{cv_links}</div>
+      </div>{contact}
+    </section>
+  </main>
+  <footer class="site-footer">
+    <details>
+      <summary>{tr('Fuentes del portafolio', 'Portfolio references')}</summary>
+      <ul>{''.join(sources)}</ul>
+    </details>
+    {github}
+  </footer>
+</body>
+</html>
+"""
     (PUBLIC / tr("index.html", "en.html")).write_text(page, encoding="utf-8")
