@@ -107,8 +107,7 @@ for lang in ["es", "en"]:
         <a class="button primary" href="#projects">{tr('Ver proyectos', 'Explore projects')}</a>
       </div>
       <figure>
-        <img src="img/sala.webp" width="1586" height="992" alt="{tr('Sala de Casa M&amp;M con ventanales y mobiliario de fibras naturales', 'Casa M&amp;M living room with tall windows and woven furniture')}">
-        <figcaption>{tr('Sala de Casa M&amp;M', 'Casa M&amp;M living room')}</figcaption>
+        <img src="img/portada-dormitorio.png" width="1570" height="880" alt="{tr('Dormitorio con iluminación cálida y una terraza visible a través de los ventanales', 'Warmly lit bedroom with a terrace visible through floor-to-ceiling windows')}">
       </figure>
     </section>
     <section class="projects" id="projects">
