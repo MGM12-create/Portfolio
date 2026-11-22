@@ -1,13 +1,14 @@
 """Generate the Spanish and English portfolio pages from project content."""
 from pathlib import Path
 from html import escape
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 import json
 import subprocess
 
 ROOT = Path(__file__).resolve().parent
 PUBLIC = ROOT / "public"
 links = json.loads((ROOT / "links.json").read_text())
+email = links.get("email", "").strip()
 if not links["github"]:
     origin = subprocess.run(["git", "config", "--get", "remote.origin.url"], cwd=ROOT,
                             capture_output=True, text=True).stdout.strip()
@@ -45,6 +46,8 @@ for lang in ["es", "en"]:
         cards.append(f'<article><a href="{url}" aria-label="{escape(name)}"><img loading="lazy" src="img/{img}.webp" alt="{escape(name)}"></a><small>{category}</small><h3>{escape(name)}</h3><p>{description}</p><a class="under" href="{url}">{tr("Ver presentación","View presentation")}</a></article>')
         sources.append(f'<li>González, Michelle. <a href="{url}"><i>{escape(name)}</i></a>. {category}. Canva.</li>')
     resources = ['<a href="cv/michelle-gonzalez-es.pdf">CV · Español (PDF)</a>', '<a href="cv/michelle-gonzalez-en.pdf">CV · English (PDF)</a>']
+    if email:
+        resources.append(f'<a href="mailto:{quote(email, safe="@")}">{escape(email)}</a>')
     for key,label in [('linkedin','LinkedIn'),('github',tr('Código en GitHub','Source on GitHub'))]:
         if urlparse(links[key]).scheme == "https":
             resources.append(f'<a href="{escape(links[key],quote=True)}">{label}</a>')

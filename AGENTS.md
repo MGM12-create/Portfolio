@@ -15,9 +15,9 @@ Portafolio bilingüe (español e inglés) de interiorismo que presenta tres proy
 El sitio entregado es estático. Los textos y la plantilla están en build.py y las direcciones configurables en links.json. Tras modificar cualquiera de esos dos archivos, ejecutar python build.py con Python 3 (python3 en macOS/Linux si corresponde). Mantener en Git los HTML generados. El CSS, las imágenes y los PDF están en public/. Para la vista local ejecutar python -m http.server 8000 --directory public y abrir http://localhost:8000. El sitio ya generado también abre desde public/index.html.
 
 ## Estado del portafolio
-La primera versión contiene las dos páginas, tres fichas con fuentes Canva, perfil, herramientas, imágenes locales, enlace de GitHub y dos PDF resumidos elaborados a partir del CV de Michelle. LinkedIn está vacío en links.json y el sitio oculta ese enlace hasta que Michelle facilite la URL. Los próximos cambios se versionan en este mismo repositorio.
+El sitio contiene las dos páginas, tres fichas con fuentes Canva, perfil, herramientas, imágenes locales y dos PDF resumidos. El LinkedIn confirmado, el correo de contacto y el enlace al repositorio se configuran en links.json. Los próximos cambios se versionan en este mismo repositorio.
 
 ## Siguiente sesión
-1. Cuando Michelle facilite los CV definitivos y su LinkedIn, actualizar el perfil bilingüe y los PDF, incorporar el enlace y modernizar el diseño con esos materiales.
+1. Cuando Michelle facilite los CV definitivos, actualizar el perfil bilingüe y los PDF, y modernizar el diseño con esos materiales.
 2. Comprobar en una ventana privada si las tres presentaciones de Canva abren con acceso de lectura para visitantes.
 3. Conectar el repositorio a Cloudflare Pages cuando Michelle decida publicar. El directorio de salida es public.
