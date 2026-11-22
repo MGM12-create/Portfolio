@@ -191,13 +191,6 @@ section[id] { scroll-margin-top: 1rem; }
 
 .project img { aspect-ratio: 8 / 5; }
 
-.project-dore .project-image { overflow: hidden; }
-
-.project-dore img {
-  transform: scale(1.46);
-  transform-origin: center bottom;
-}
-
 .project p { margin: .7rem 0 1rem; }
 
 .project .project-category {

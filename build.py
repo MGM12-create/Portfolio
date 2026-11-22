@@ -17,13 +17,13 @@ if not links["github"]:
         links["github"] = origin
 
 projects = [
-    ("Restaurante Luna", "luna", "41zohzijkpnqaip",
+    ("Restaurante Luna", "luna.webp", "41zohzijkpnqaip",
      ("Iluminación comercial", "En la barra, la luz cálida revela la veta del nogal. En las mesas se vuelve más suave y, al fondo, pequeños acentos separan los cuadros del muro color ciruela. Tres formas de iluminar acompañan tres momentos de la visita."),
      ("Hospitality lighting", "Warm light brings out the walnut grain at the bar. Softer light settles over the tables, while small accents draw the artwork forward against the plum wall. Each layer suits a different moment of the visit.")),
-    ("Casa M&M", "jardin", "nnrv6c98b4fl7xy",
+    ("Casa M&M", "jardin.webp", "nnrv6c98b4fl7xy",
      ("Remodelación y paisajismo", "La remodelación empieza en el jardín. Un sendero entre árboles lleva a la terraza y, desde allí, a una sala donde el ratán, el yute y el lino dan textura a los tonos arena y marfil."),
      ("Renovation and landscape", "The renovation begins in the garden. A path between the trees leads to the terrace and into a living room where rattan, jute and linen give texture to a palette of sand and ivory.")),
-    ("Casa Doré", "dore", "pjuh55f2u64yrvx",
+    ("Casa Doré", "casa-dore.png", "pjuh55f2u64yrvx",
      ("Investigación y diseño residencial", "Proyecto de bachillerato que reinterpreta el art déco de los años veinte en una vivienda contemporánea. La selección de colores y materiales parte de ese referente y responde a criterios de confort y diseño bioclimático."),
      ("Residential design research", "A bachelor's degree project reinterpreting 1920s Art Deco for a contemporary home. The choice of colours and materials draws on the period while responding to comfort and bioclimatic design principles.")),
 ]
@@ -49,9 +49,9 @@ for lang in ["es", "en"]:
         url = "https://canva.link/" + short
         project_name = escape(name)
         cards.append(f"""
-          <article class="project project-{img}">
+          <article class="project">
             <a class="project-image" href="{url}" aria-label="{presentation}: {project_name}">
-              <img loading="lazy" src="img/{img}.webp" alt="{project_name}">
+              <img loading="lazy" src="img/{img}" alt="{project_name}">
             </a>
             <p class="project-category">{category}</p>
             <h3>{project_name}</h3>
