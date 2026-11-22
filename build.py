@@ -42,21 +42,14 @@ for lang in ["es", "en"]:
         "My work includes space planning and selecting materials, finishes and furniture. "
         "I use 3D modeling and rendering to develop and communicate my proposals.",
     )
-    experience = tr(
-        "En mi pasantía en Grupo MC Arquitectura coordiné reuniones y apoyé la gestión de trámites "
-        "y la comunicación con clientes. También tengo experiencia en atención al cliente y docencia preescolar.",
-        "During my internship at Grupo MC Arquitectura, I coordinated meetings and assisted with administrative "
-        "tasks and client communications. I also have experience in customer service and preschool teaching.",
-    )
     cards = []
-    sources = []
     presentation = tr("Ver presentación", "View presentation")
     for name, img, short, spanish, english in projects:
         category, description = spanish if es else english
         url = "https://canva.link/" + short
         project_name = escape(name)
         cards.append(f"""
-          <article class="project">
+          <article class="project project-{img}">
             <a class="project-image" href="{url}" aria-label="{presentation}: {project_name}">
               <img loading="lazy" src="img/{img}.webp" alt="{project_name}">
             </a>
@@ -65,7 +58,6 @@ for lang in ["es", "en"]:
             <p>{description}</p>
             <a class="project-link" href="{url}" aria-label="{presentation}: {project_name}">{presentation}</a>
           </article>""")
-        sources.append(f'<li>González, Michelle. <a href="{url}"><cite>{project_name}</cite></a>. {category}. Canva.</li>')
 
     cv_es = '<a class="button" href="cv/michelle-gonzalez-es.pdf" lang="es" hreflang="es">CV en español <span>PDF</span></a>'
     cv_en = '<a class="button" href="cv/michelle-gonzalez-en.pdf" lang="en" hreflang="en">English résumé <span>PDF</span></a>'
@@ -129,7 +121,6 @@ for lang in ["es", "en"]:
         <h2>{tr('Sobre mí', 'About me')}</h2>
         <div>
           <p class="bio">{bio}</p>
-          <p>{experience}</p>
         </div>
       </div>
       <div class="profile-details">
@@ -146,7 +137,7 @@ for lang in ["es", "en"]:
           <h3>{tr('Herramientas', 'Software')}</h3>
           <dl>
             <dt>{tr('Diseño y modelado', 'Design and modeling')}</dt>
-            <dd>SketchUp · AutoCAD · Autodesk Revit</dd>
+            <dd>SketchUp · AutoCAD · Autodesk</dd>
             <dt>{tr('Renderizado', 'Rendering')}</dt>
             <dd>Twinmotion · D5 Render</dd>
             <dt>{tr('Diseño gráfico', 'Graphic design')}</dt>
@@ -163,10 +154,6 @@ for lang in ["es", "en"]:
     </section>
   </main>
   <footer class="site-footer">
-    <details>
-      <summary>{tr('Fuentes del portafolio', 'Portfolio references')}</summary>
-      <ul>{''.join(sources)}</ul>
-    </details>
     {github}
   </footer>
 </body>

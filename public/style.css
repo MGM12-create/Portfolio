@@ -28,8 +28,7 @@ a {
 
 a:hover { text-decoration-thickness: .12em; }
 
-a:focus-visible,
-summary:focus-visible {
+a:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;
 }
@@ -200,7 +199,12 @@ section[id] { scroll-margin-top: 1rem; }
 
 .project img { aspect-ratio: 8 / 5; }
 
-.project:last-child img { object-fit: contain; }
+.project-dore .project-image { overflow: hidden; }
+
+.project-dore img {
+  transform: scale(1.46);
+  transform-origin: center bottom;
+}
 
 .project p { margin: .7rem 0 1rem; }
 
@@ -295,8 +299,6 @@ section[id] { scroll-margin-top: 1rem; }
   color: var(--muted);
   font-size: .9rem;
 }
-
-summary { cursor: pointer; }
 
 @media (max-width: 760px) {
   .hero,
